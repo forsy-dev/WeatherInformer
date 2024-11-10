@@ -16,6 +16,7 @@ const settings = reactive(savedSettings ? JSON.parse(savedSettings) : {
 });
 
 // Provide the settings object to all child components
+
 provide('settings', settings);
 
 // Watch for changes in settings and update localStorage
