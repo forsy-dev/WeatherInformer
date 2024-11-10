@@ -1,0 +1,13 @@
+{
+  "name": "weatherinformer",
+  "version": "0.0.1",
+  "description": "This app allows you to check weather in different countries and cities",
+  "author": "Illia Kiiko",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/app": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  }
+}

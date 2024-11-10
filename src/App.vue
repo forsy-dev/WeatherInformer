@@ -6,21 +6,20 @@
 </template>
 
 <script setup>
-import { reactive, watch, provide } from 'vue';
+/*
+imports
+*/
 
-// Load settings from localStorage if available, otherwise use defaults
-const savedSettings = localStorage.getItem('settings');
-const settings = reactive(savedSettings ? JSON.parse(savedSettings) : {
-  temperature: 'Celsius', // default value for temperature
-  distance: 'km',         // default value for distance
-});
+import { onMounted } from 'vue';
+import { useStoreSettings } from './stores/storeSettings';
 
-// Provide the settings object to all child components
+/*
+stores
+*/
 
-provide('settings', settings);
+const storeSettings = useStoreSettings()
 
-// Watch for changes in settings and update localStorage
-watch(settings, (newSettings) => {
-  localStorage.setItem('settings', JSON.stringify(newSettings));
-}, { deep: true });
+onMounted(() => {
+  storeSettings.loadSettings()
+})
 </script>

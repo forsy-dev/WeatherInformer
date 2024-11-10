@@ -2,7 +2,7 @@
   <q-page class="flex flex-center q-pa-md">
     <q-card class="q-pa-lg" style="width: 400px">
       <div class="text-h6 text-center q-mb-md">Weather Query</div>
-      
+
       <q-select
         v-model="selectedCity"
         label="Select City"
@@ -12,10 +12,10 @@
         filled
         clearable
       />
-      
-      <q-btn class="q-mt-md" label="Get Weather" @click="getWeather" color="primary" 
+
+      <q-btn class="q-mt-md" label="Get Weather" @click="getWeather" color="primary"
       :disable="!selectedCity"/>
-      
+
       <q-spinner v-if="loading" color="primary" />
 
       <div v-if="weatherData" class="q-mt-md text-center">
@@ -48,16 +48,24 @@
 </template>
 
 <script setup>
-import { ref, inject } from 'vue';
+/*
+imports
+*/
+import { useStoreSettings } from 'src/stores/storeSettings';
+import { ref } from 'vue';
 import axios from 'axios';
+
+/*
+stores
+*/
+
+const storeSettings = useStoreSettings()
 
 const cities = ref(['London', 'Paris', 'New York', 'Tokyo']);
 const selectedCity = ref('');
 const weatherData = ref(null);
 const errorMessage = ref('');
 const loading = ref(false);
-
-const settings = inject('settings');
 
 const getWeather = () => {
   if (!selectedCity.value) {
@@ -87,7 +95,7 @@ const getWeather = () => {
 };
 
 const formatTemperature = (temp) => {
-  switch (settings.temperature) {
+  switch (storeSettings.settings.temperature) {
     case 'Celsius':
       return `${Math.round(temp - 273.15)}°C`;
     case 'Fahrenheit':
@@ -98,7 +106,7 @@ const formatTemperature = (temp) => {
 };
 
 const formatDistance = (distance) => {
-  if (settings.distance === 'miles') {
+  if (storeSettings.settings.distance === 'miles') {
     return `${(distance / 1609.34).toFixed(2)} miles`;
   }
   return `${(distance / 1000).toFixed(2)} km`;
